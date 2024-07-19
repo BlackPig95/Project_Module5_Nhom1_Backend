@@ -24,7 +24,7 @@ public class MovieController
     private final HttpStatus httpOk = HttpStatus.OK;
 
     @GetMapping({"/", ""})
-    public CustomResponseEntity<?> findAllMovies(@PageableDefault(page = 0, size = 2,
+    public CustomResponseEntity<?> findAllMovies(@PageableDefault(page = 0, size = 10,
             sort = "id", direction = Sort.Direction.ASC) Pageable pageable)
     {
         Page<Movie> movies = movieService.findAll(pageable);
@@ -44,6 +44,18 @@ public class MovieController
                 .status(HttpStatus.CREATED)
                 .message("Danh sách các phim hiện có")
                 .data(movieService.addMovie(movieRequest))
+                .build();
+    }
+
+    @DeleteMapping("/{id}")
+    public CustomResponseEntity<?> deleteMovie(@PathVariable Long id)
+    {
+        movieService.deleteMovie(id);
+        return CustomResponseEntity.builder()
+                .statusCode(HttpStatus.NO_CONTENT.value())
+                .status(HttpStatus.NO_CONTENT)
+                .message("Đã xóa phim")
+                .data("Phim có id " + id + " đã bị xóa")
                 .build();
     }
 }

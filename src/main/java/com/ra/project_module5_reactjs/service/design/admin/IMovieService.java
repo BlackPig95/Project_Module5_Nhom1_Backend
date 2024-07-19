@@ -12,4 +12,6 @@ public interface IMovieService
     Page<Movie> findAll(Pageable pageable);
 
     Movie addMovie(MovieRequest movieRequest) throws ParseException;
+
+    void deleteMovie(Long id);
 }

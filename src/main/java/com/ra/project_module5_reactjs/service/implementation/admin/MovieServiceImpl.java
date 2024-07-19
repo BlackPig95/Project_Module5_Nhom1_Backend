@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -56,5 +57,13 @@ public class MovieServiceImpl implements IMovieService
                 .genres(movieRequest.getGenres().stream().map(genreRepo::findByName).collect(Collectors.toSet()))
                 .build();
         return movieRepo.save(movie);
+    }
+
+    @Override
+    public void deleteMovie(Long id)
+    {
+        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);
+        System.out.println(listGenere);
+        movieRepo.deleteById(id);
     }
 }
