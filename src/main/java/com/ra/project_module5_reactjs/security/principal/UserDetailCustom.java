@@ -11,6 +11,7 @@ import java.util.Collection;
 @Getter
 @Setter
 @Builder
+
 public class UserDetailCustom implements UserDetails {
     private Long id;
     private String avatarUrl;
@@ -21,6 +22,9 @@ public class UserDetailCustom implements UserDetails {
     private String phone;
     private Boolean status;
     private String username;
+
+    private String authorizationType = "Bearer ";
+
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override
