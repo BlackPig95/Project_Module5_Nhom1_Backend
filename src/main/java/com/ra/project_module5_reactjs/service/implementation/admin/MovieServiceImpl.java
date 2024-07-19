@@ -62,8 +62,14 @@ public class MovieServiceImpl implements IMovieService
     @Override
     public void deleteMovie(Long id)
     {
-        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);
-        System.out.println(listGenere);
+//        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);
+//        System.out.println(listGenere);
         movieRepo.deleteById(id);
+    }
+
+    @Override
+    public Movie findById(Long id)
+    {
+        return movieRepo.findById(id).orElse(null);
     }
 }

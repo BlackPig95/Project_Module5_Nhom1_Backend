@@ -58,4 +58,15 @@ public class MovieController
                 .data("Phim có id " + id + " đã bị xóa")
                 .build();
     }
+
+    @GetMapping("/{id}")
+    public CustomResponseEntity<?> getMovieDetails(@PathVariable Long id)
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Chi tiết phim")
+                .data(movieService.findById(id))
+                .build();
+    }
 }
