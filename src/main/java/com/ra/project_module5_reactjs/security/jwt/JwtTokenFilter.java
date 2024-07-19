@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.security.jwt;
 
+import com.ra.project_module5_reactjs.security.principal.UserDetailCustomService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter
 {
     private final JwtProvider jwtProvider;
-    private final UserDetailsService userDetailsService;
+    private final UserDetailCustomService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException

@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 public class UserDetailCustom implements UserDetails
 {
+    private String username;
     private String authorizationType = "Bearer ";
     private Collection<? extends GrantedAuthority> authorities;
 
