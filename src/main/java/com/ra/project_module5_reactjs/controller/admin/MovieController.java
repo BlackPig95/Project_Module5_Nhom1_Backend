@@ -69,4 +69,16 @@ public class MovieController
                 .data(movieService.findById(id))
                 .build();
     }
+
+    @GetMapping("/name/{searchName}")
+    public CustomResponseEntity<?> getMovieDetails(@PageableDefault(page = 0, size = 10,
+            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @PathVariable String searchName)
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Danh sách phim tìm được")
+                .data(movieService.findAllByName(searchName, pageable))
+                .build();
+    }
 }

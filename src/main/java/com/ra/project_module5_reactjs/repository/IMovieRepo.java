@@ -16,6 +16,7 @@ public interface IMovieRepo extends JpaRepository<Movie, Long>, PagingAndSorting
     @Override
     Page<Movie> findAll(Pageable pageable);
 
+    Page<Movie> findAllByTitleContaining(String title, Pageable pageable);
 //    @Query("select m from Movie m join m.genres g where ")
 //    List<Movie> findMovieWithGenre(Long id);
 }

@@ -72,4 +72,10 @@ public class MovieServiceImpl implements IMovieService
     {
         return movieRepo.findById(id).orElse(null);
     }
+
+    @Override
+    public Page<Movie> findAllByName(String title, Pageable pageable)
+    {
+        return movieRepo.findAllByTitleContaining(title, pageable);
+    }
 }
