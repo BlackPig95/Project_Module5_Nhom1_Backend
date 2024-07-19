@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.controller.admin;
 
+import com.ra.project_module5_reactjs.model.dto.request.MovieRequest;
 import com.ra.project_module5_reactjs.model.dto.response.CustomResponseEntity;
 import com.ra.project_module5_reactjs.model.entity.Movie;
 import com.ra.project_module5_reactjs.service.design.admin.IMovieService;
@@ -10,9 +11,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +33,17 @@ public class MovieController
                 .status(httpOk)
                 .message("Danh sách các phim hiện có")
                 .data(movies)
+                .build();
+    }
+
+    @PostMapping({"/", ""})
+    public CustomResponseEntity<?> addMovie(@ModelAttribute MovieRequest movieRequest) throws ParseException
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(HttpStatus.CREATED.value())
+                .status(HttpStatus.CREATED)
+                .message("Danh sách các phim hiện có")
+                .data(movieService.addMovie(movieRequest))
                 .build();
     }
 }
