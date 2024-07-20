@@ -18,4 +18,6 @@ public interface IMovieService
     Movie findById(Long id);
 
     Page<Movie> findAllByName(String title, Pageable pageable);
+
+    Movie editMovie(MovieRequest movieRequest) throws ParseException;
 }

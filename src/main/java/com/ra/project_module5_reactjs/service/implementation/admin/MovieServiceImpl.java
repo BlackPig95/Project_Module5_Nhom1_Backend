@@ -60,6 +60,28 @@ public class MovieServiceImpl implements IMovieService
     }
 
     @Override
+    public Movie editMovie(MovieRequest movieRequest) throws ParseException
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Movie movie = Movie.builder()
+                .id(movieRequest.getId())
+                .description(movieRequest.getDescription())
+                .director(movieRequest.getDirector())
+                .actors(movieRequest.getActors())
+                .userAdvice(UserAdviceEnum.valueOf(movieRequest.getUserAdvice()))
+                .duration(movieRequest.getDuration())
+                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
+                .releaseDate(sdf.parse(movieRequest.getReleaseDate()))
+                .title(movieRequest.getTitle())
+                .trailerLink(movieRequest.getTrailerLink())
+                .status(movieRequest.getStatus())//Mặc định khi thêm mới là true
+                .country(countryRepo.findByName(movieRequest.getCountryName()))
+                .genres(movieRequest.getGenres().stream().map(genreRepo::findByName).collect(Collectors.toSet()))
+                .build();
+        return movieRepo.save(movie);
+    }
+
+    @Override
     public void deleteMovie(Long id)
     {
 //        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);

@@ -16,6 +16,7 @@ import java.util.Set;
 @Builder
 public class MovieRequest
 {
+    private Long id;
     private String description;
     private String director;
     private String actors;

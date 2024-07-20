@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ra.project_module5_reactjs.constant.UserAdviceEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,7 @@ public class Movie
     @Column(name = "poster_url")
     private String posterUrl;
     @Column(name = "release_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
     @Column(name = "title", length = 100)
     private String title; //varchar100

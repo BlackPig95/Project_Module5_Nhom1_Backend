@@ -42,8 +42,19 @@ public class MovieController
         return CustomResponseEntity.builder()
                 .statusCode(HttpStatus.CREATED.value())
                 .status(HttpStatus.CREATED)
-                .message("Danh sách các phim hiện có")
+                .message("Thêm phim thành công")
                 .data(movieService.addMovie(movieRequest))
+                .build();
+    }
+
+    @PutMapping({"/", ""})
+    public CustomResponseEntity<?> editMovie(@ModelAttribute MovieRequest movieRequest) throws ParseException
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(HttpStatus.CREATED.value())
+                .status(HttpStatus.CREATED)
+                .message("Cập nhật thành công")
+                .data(movieService.editMovie(movieRequest))
                 .build();
     }
 
