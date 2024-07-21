@@ -25,9 +25,9 @@ public class MovieController
 
     @GetMapping({"/", ""})
     public CustomResponseEntity<?> findAllMovies(@PageableDefault(page = 0, size = 10,
-            sort = "id", direction = Sort.Direction.ASC) Pageable pageable)
+            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam String title)
     {
-        Page<Movie> movies = movieService.findAll(pageable);
+        Page<Movie> movies = movieService.findAllByName(title, pageable);
         return CustomResponseEntity.builder()
                 .statusCode(httpOk.value())
                 .status(httpOk)
@@ -81,9 +81,9 @@ public class MovieController
                 .build();
     }
 
-    @GetMapping("/name/{searchName}")
-    public CustomResponseEntity<?> getMovieDetails(@PageableDefault(page = 0, size = 10,
-            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @PathVariable String searchName)
+    @GetMapping({"/name/{searchName}", "/name/"})
+    public CustomResponseEntity<?> findByName(@PageableDefault(page = 0, size = 10,
+            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @PathVariable(required = false) String searchName)
     {
         return CustomResponseEntity.builder()
                 .statusCode(httpOk.value())
