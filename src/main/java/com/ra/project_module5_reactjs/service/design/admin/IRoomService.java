@@ -11,4 +11,6 @@ public interface IRoomService
     Page<Room> findAll(Pageable pageable);
 
     Room addRoom(Room room);
+
+    void deleteRoom(Long roomId);
 }

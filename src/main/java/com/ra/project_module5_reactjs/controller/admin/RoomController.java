@@ -43,8 +43,20 @@ public class RoomController
         return CustomResponseEntity.builder()
                 .statusCode(httpOk.value())
                 .status(httpOk)
-                .message("Danh sách các phòng chiếu")
+                .message("Thêm phòng chiếu")
                 .data(roomService.addRoom(room))
+                .build();
+    }
+
+    @DeleteMapping("/{roomId}")
+    public CustomResponseEntity<?> deleteRoom(@PathVariable Long roomId)
+    {
+        roomService.deleteRoom(roomId);
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Xóa phòng chiếu")
+                .data("Đã thực hiện yêu cầu xóa phòng chiếu có id " + roomId)
                 .build();
     }
 }
