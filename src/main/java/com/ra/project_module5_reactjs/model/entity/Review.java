@@ -22,6 +22,8 @@ public class Review
     private String comment;
     @Column(name = "rating")
     private Integer rating;
+    @Column(name = "status")
+    private Boolean status;
     @Column(name = "review_date")
     private Date reviewDate;
     @ManyToOne(fetch = FetchType.EAGER)
