@@ -13,7 +13,7 @@ public interface IMovieService
 
     Movie addMovie(MovieRequest movieRequest) throws ParseException;
 
-    void deleteMovie(Long id);
+    String deleteMovie(Long id);
 
     Movie findById(Long id);
 

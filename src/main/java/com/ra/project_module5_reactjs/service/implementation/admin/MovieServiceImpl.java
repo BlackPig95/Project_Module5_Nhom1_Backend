@@ -9,6 +9,7 @@ import com.ra.project_module5_reactjs.model.entity.Movie;
 import com.ra.project_module5_reactjs.repository.ICountryRepo;
 import com.ra.project_module5_reactjs.repository.IGenreRepo;
 import com.ra.project_module5_reactjs.repository.IMovieRepo;
+import com.ra.project_module5_reactjs.repository.IShowtimeRepo;
 import com.ra.project_module5_reactjs.service.design.admin.IMovieService;
 import jakarta.persistence.*;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class MovieServiceImpl implements IMovieService
 //    private final FileService fileService;
     private final ICountryRepo countryRepo;
     private final IGenreRepo genreRepo;
+    private final IShowtimeRepo showtimeRepo;
 
     @Override
     public Page<Movie> findAll(Pageable pageable)
@@ -84,11 +86,20 @@ public class MovieServiceImpl implements IMovieService
 
     @Override
     @Transactional
-    public void deleteMovie(Long id)
+    public String deleteMovie(Long id)
     {
 //        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);
 //        System.out.println(listGenere);
-        movieRepo.deleteById(id);
+        Movie movieToBeDeleted = movieRepo.findById(id).orElseThrow(() -> new RuntimeException("Phim không tồn tại"));
+        if (showtimeRepo.existsByMovie_Id(id))
+        {
+            movieToBeDeleted.setStatus(false);
+            return "Phim đã được chuyển trạng thái về không hoạt động";
+        } else
+        {
+            movieRepo.delete(movieToBeDeleted);
+            return "Phim đã được xóa";
+        }
     }
 
     @Override
