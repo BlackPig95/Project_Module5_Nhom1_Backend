@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.repository;
 
+import com.ra.project_module5_reactjs.model.entity.Genre;
 import com.ra.project_module5_reactjs.model.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,9 @@ public interface IMovieRepo extends JpaRepository<Movie, Long>, PagingAndSorting
     Page<Movie> findAll(Pageable pageable);
 
     Page<Movie> findAllByTitleContaining(String title, Pageable pageable);
-//    @Query("select m from Movie m join m.genres g where ")
+
+    //    @Query("select m from Movie m join m.genres g where ")
 //    List<Movie> findMovieWithGenre(Long id);
+    @Query("select m.genres from Movie m where m.id = :movieId")
+    List<Genre> findGenresByMovieId(Long movieId);
 }

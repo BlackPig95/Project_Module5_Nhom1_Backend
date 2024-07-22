@@ -61,12 +61,11 @@ public class MovieController
     @DeleteMapping("/{id}")
     public CustomResponseEntity<?> deleteMovie(@PathVariable Long id)
     {
-        movieService.deleteMovie(id);
         return CustomResponseEntity.builder()
                 .statusCode(HttpStatus.NO_CONTENT.value())
                 .status(HttpStatus.NO_CONTENT)
-                .message("Đã xóa phim")
-                .data("Phim có id " + id + " đã bị xóa")
+                .message("Thực hiện yêu cầu xóa phim")
+                .data(movieService.deleteMovie(id))
                 .build();
     }
 
