@@ -22,7 +22,7 @@ public class Seat
     @Column(name = "number")
     private Integer number;
     @Column(name = "seat_row", length = 5)
-    private String seatRow;//Varchar 5
+    private String seatRow;//Varchar 5  A3 B1 B2 B3
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     private SeatTypeEnum type;

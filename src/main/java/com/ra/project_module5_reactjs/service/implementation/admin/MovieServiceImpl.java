@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements IMovieService
 {
     private final IMovieRepo movieRepo;
-    private final FileService fileService;
+//    private final FileService fileService;
     private final ICountryRepo countryRepo;
     private final IGenreRepo genreRepo;
 
@@ -49,7 +49,7 @@ public class MovieServiceImpl implements IMovieService
                 .actors(movieRequest.getActors())
                 .userAdvice(UserAdviceEnum.valueOf(movieRequest.getUserAdvice()))
                 .duration(movieRequest.getDuration())
-                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
+//                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
                 .releaseDate(sdf.parse(movieRequest.getReleaseDate()))
                 .title(movieRequest.getTitle())
                 .trailerLink(movieRequest.getTrailerLink())
@@ -71,7 +71,7 @@ public class MovieServiceImpl implements IMovieService
                 .actors(movieRequest.getActors())
                 .userAdvice(UserAdviceEnum.valueOf(movieRequest.getUserAdvice()))
                 .duration(movieRequest.getDuration())
-                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
+//                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
                 .releaseDate(sdf.parse(movieRequest.getReleaseDate()))
                 .title(movieRequest.getTitle())
                 .trailerLink(movieRequest.getTrailerLink())
