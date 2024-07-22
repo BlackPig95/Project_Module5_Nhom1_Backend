@@ -29,14 +29,16 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig
+{
     private final UserDetailsService userDetailsService;
     private final JwtTokenFilter jwtTokenFilter;
     private final JwtEntryPoint jwtEntryPoint;
     private final AccessDenied accessDenied;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+    {
         return http
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(
                         request ->
@@ -55,8 +57,8 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(
                         url -> url
-                                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleEnum.ADMIN.toString())
-                                .requestMatchers("/api/v1/user/**").hasAuthority(RoleEnum.USER.toString())
+//                                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleEnum.ADMIN.toString())
+//                                .requestMatchers("/api/v1/user/**").hasAuthority(RoleEnum.USER.toString())
 //                        .requestMatchers("/api/v1/auth/register").permitAll()
                                 .anyRequest().permitAll()
                 )
@@ -67,12 +69,14 @@ public class SecurityConfig {
 
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder()
+    {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationProvider authProvider() {
+    public AuthenticationProvider authProvider()
+    {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(passwordEncoder());
         authProvider.setUserDetailsService(userDetailsService);
@@ -80,7 +84,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception
+    {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }

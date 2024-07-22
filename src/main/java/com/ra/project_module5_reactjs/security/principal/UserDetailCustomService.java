@@ -19,11 +19,13 @@ public class UserDetailCustomService implements UserDetailsService
 {
 
     @Autowired
+
     private IUserRepository IUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = IUserRepository.findByEmail(username)
+
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return UserDetailCustom.builder()
@@ -39,7 +41,6 @@ public class UserDetailCustomService implements UserDetailsService
                 .username(user.getUsername())
                 .authorities(user.getRoles().stream().map(roles -> new SimpleGrantedAuthority(roles.getName().toString())).toList())
                 .build();
-
 
     }
 }
