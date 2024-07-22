@@ -36,4 +36,15 @@ public class RoomController
                 .data(listRoom)
                 .build();
     }
+
+    @PostMapping({"/", ""})
+    public CustomResponseEntity<?> addRoom(@RequestBody Room room)
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Danh sách các phòng chiếu")
+                .data(roomService.addRoom(room))
+                .build();
+    }
 }

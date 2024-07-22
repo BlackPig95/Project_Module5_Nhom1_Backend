@@ -20,4 +20,11 @@ public class RoomServiceImpl implements IRoomService
     {
         return roomRepo.findAll(pageable);
     }
+
+    @Override
+    public Room addRoom(Room room)
+    {
+        room.setStatus(true);//Mặc định khi mới add room vào là true
+        return roomRepo.save(room);
+    }
 }
