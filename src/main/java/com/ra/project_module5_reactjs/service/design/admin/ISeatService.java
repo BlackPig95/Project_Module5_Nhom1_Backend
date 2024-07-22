@@ -16,5 +16,6 @@ public interface ISeatService {
 
     public Page<Seat> sortByNumber(Integer page, Integer limit, String direction);
 
+
 }
 

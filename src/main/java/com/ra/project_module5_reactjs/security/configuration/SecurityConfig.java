@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.security.configuration;
 
+import com.ra.project_module5_reactjs.constant.RoleEnum;
 import com.ra.project_module5_reactjs.security.exception.AccessDenied;
 import com.ra.project_module5_reactjs.security.exception.JwtEntryPoint;
 import com.ra.project_module5_reactjs.security.jwt.JwtTokenFilter;
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
+
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,8 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 import java.util.List;
 
@@ -51,15 +51,22 @@ public class SecurityConfig
                             return corsConfiguration;
                         }
                 ))
+
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(url -> url
-                        .anyRequest().permitAll())
+                .authorizeHttpRequests(
+                        url -> url
+//                                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleEnum.ADMIN.toString())
+//                                .requestMatchers("/api/v1/user/**").hasAuthority(RoleEnum.USER.toString())
+//                        .requestMatchers("/api/v1/auth/register").permitAll()
+                                .anyRequest().permitAll()
+                )
                 .authenticationProvider(authProvider())
                 .exceptionHandling(e -> e.authenticationEntryPoint(jwtEntryPoint).accessDeniedHandler(accessDenied))
                 .build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder()

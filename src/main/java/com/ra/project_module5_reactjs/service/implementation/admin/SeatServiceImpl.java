@@ -31,6 +31,7 @@ public class SeatServiceImpl implements ISeatService {
 
     @Override
     public void updateSeat(Seat seat) {
+        iSeatRepository.save(seat);
 
     }
 
