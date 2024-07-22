@@ -10,16 +10,16 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Configuration
+//@Configuration
 public class FirebaseConfig
 {
-    @Bean
-    public Storage storage() throws IOException
-    {
-        InputStream inputStream = new ClassPathResource("firebase-config.json").getInputStream();
-        return StorageOptions.newBuilder()
-                .setCredentials(GoogleCredentials.fromStream(inputStream))
-                .build()
-                .getService();
-    }
+//    @Bean
+//    public Storage storage() throws IOException
+//    {
+//        InputStream inputStream = new ClassPathResource("firebase-config.json").getInputStream();
+//        return StorageOptions.newBuilder()
+//                .setCredentials(GoogleCredentials.fromStream(inputStream))
+//                .build()
+//                .getService();
+//    }
 }
