@@ -29,6 +29,7 @@ public class RoomController
             sort = "id", direction = Sort.Direction.ASC) Pageable pageable)
     {
         Page<Room> listRoom = roomService.findAll(pageable);
+        System.out.println(pageable);
         return CustomResponseEntity.builder()
                 .statusCode(httpOk.value())
                 .status(httpOk)
