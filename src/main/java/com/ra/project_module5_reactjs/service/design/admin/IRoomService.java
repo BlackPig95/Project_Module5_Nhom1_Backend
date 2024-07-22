@@ -13,4 +13,6 @@ public interface IRoomService
     Room addRoom(Room room);
 
     void deleteRoom(Long roomId);
+
+    Room editRoom(Room room);
 }

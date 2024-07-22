@@ -34,4 +34,10 @@ public class RoomServiceImpl implements IRoomService
         Room room = roomRepo.findById(roomId).orElseThrow(() -> new RuntimeException("Phòng chiếu không tồn tại"));
         roomRepo.delete(room);
     }
+
+    @Override
+    public Room editRoom(Room room)
+    {
+        return roomRepo.save(room);
+    }
 }
