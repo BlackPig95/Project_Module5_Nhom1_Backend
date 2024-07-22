@@ -2,7 +2,7 @@ package com.ra.project_module5_reactjs.security.principal;
 
 import com.ra.project_module5_reactjs.model.entity.User;
 
-import com.ra.project_module5_reactjs.repository.UserRepository;
+import com.ra.project_module5_reactjs.repository.IUserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 
 @Service
 @RequiredArgsConstructor
@@ -21,11 +19,11 @@ public class UserDetailCustomService implements UserDetailsService
 {
 
     @Autowired
-    private UserRepository userRepository ;
+    private IUserRepository IUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username)
+        User user = IUserRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return UserDetailCustom.builder()
@@ -42,20 +40,6 @@ public class UserDetailCustomService implements UserDetailsService
                 .authorities(user.getRoles().stream().map(roles -> new SimpleGrantedAuthority(roles.getName().toString())).toList())
                 .build();
 
-    private final IUserRepo userRepo;
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-    {
-        Optional<User> optionalUser = userRepo.findByUsername(username);
-        if (optionalUser.isPresent())
-        {
-            User user = optionalUser.get();
-            return UserDetailCustom.builder()
-                    .username(user.getUsername())
-                    .build();
-        }
-        throw new UsernameNotFoundException("No such username exist");
 
     }
 }
