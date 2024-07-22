@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,6 +83,7 @@ public class MovieServiceImpl implements IMovieService
     }
 
     @Override
+    @Transactional
     public void deleteMovie(Long id)
     {
 //        List<Genre> listGenere = genreRepo.findGenreByMovieId(id);
