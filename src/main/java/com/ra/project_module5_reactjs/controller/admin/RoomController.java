@@ -59,4 +59,15 @@ public class RoomController
                 .data("Đã thực hiện yêu cầu xóa phòng chiếu có id " + roomId)
                 .build();
     }
+
+    @PutMapping({"/", ""})
+    public CustomResponseEntity<?> editRoom(@RequestBody Room room)
+    {
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Cập nhật phòng chiếu")
+                .data(roomService.editRoom(room))
+                .build();
+    }
 }
