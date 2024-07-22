@@ -27,4 +27,11 @@ public class RoomServiceImpl implements IRoomService
         room.setStatus(true);//Mặc định khi mới add room vào là true
         return roomRepo.save(room);
     }
+
+    @Override
+    public void deleteRoom(Long roomId)
+    {
+        Room room = roomRepo.findById(roomId).orElseThrow(() -> new RuntimeException("Phòng chiếu không tồn tại"));
+        roomRepo.delete(room);
+    }
 }
