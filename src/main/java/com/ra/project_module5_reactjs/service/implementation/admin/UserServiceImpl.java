@@ -7,12 +7,14 @@ import com.ra.project_module5_reactjs.model.dto.request.RegisterRequest;
 import com.ra.project_module5_reactjs.model.dto.response.JwtResponse;
 import com.ra.project_module5_reactjs.model.entity.Role;
 import com.ra.project_module5_reactjs.model.entity.User;
-import com.ra.project_module5_reactjs.repository.UserRepository;
+import com.ra.project_module5_reactjs.repository.IUserRepository;
 import com.ra.project_module5_reactjs.security.jwt.JwtProvider;
 import com.ra.project_module5_reactjs.security.principal.UserDetailCustom;
 import com.ra.project_module5_reactjs.service.design.admin.IRoleService;
 import com.ra.project_module5_reactjs.service.design.admin.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +34,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements IUserService {
     private final JwtProvider jwtProvider;
     private final AuthenticationManager manager;
-    private final UserRepository userRepository;
+    private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final IRoleService roleService;
     @Override
@@ -76,6 +78,24 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
     }
 
+    @Override
+    public Page<User> findAll(Pageable pageable, String search) {
+        Page<User> users;
+        if(search.isEmpty()) {
+            users = userRepository.findAll(pageable);
+        }else {
+            users = userRepository.findAllByUsernameContains(search,pageable);
+        }
+        return users;
+    }
+
+    @Override
+    public void updateUserStatus(Long id) throws CustomException {
+        User user = userRepository.findById(id).orElseThrow(() -> new CustomException("User not found",HttpStatus.NOT_FOUND));
+        user.setStatus(!user.getStatus()); 
+        userRepository.save(user);
+
+    }
 
 
 }
