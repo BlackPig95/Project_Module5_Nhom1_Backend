@@ -21,6 +21,6 @@ public interface IMovieRepo extends JpaRepository<Movie, Long>, PagingAndSorting
 
     //    @Query("select m from Movie m join m.genres g where ")
 //    List<Movie> findMovieWithGenre(Long id);
-    @Query("select m.genres from Movie m where m.id = :movieId")
-    List<Genre> findGenresByMovieId(Long movieId);
+//    @Query("select m.genres from Movie m where m.id = :movieId")
+//    List<Genre> findGenresByMovieId(Long movieId);
 }
