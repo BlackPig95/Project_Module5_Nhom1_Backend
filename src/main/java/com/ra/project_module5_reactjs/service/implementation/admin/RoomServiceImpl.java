@@ -11,21 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RoomServiceImpl implements IRoomService {
-
-    private  final IRoomRepository iRoomRepository;
-    @Override
-    public Page<Room> getAllProduct(Integer page, Integer limit) {
-        Pageable pageable = PageRequest.of(page,limit);
-
-        return iRoomRepository.findAll(pageable);
-    }
+public class RoomServiceImpl implements IRoomService
+{
+    private final IRoomRepository roomRepo;
 
     @Override
-    public Room createRoom(Room room) {
-
-        return iRoomRepository.save(room);
+    public Page<Room> findAll(Pageable pageable)
+    {
+        return roomRepo.findAll(pageable);
     }
-
-
 }
