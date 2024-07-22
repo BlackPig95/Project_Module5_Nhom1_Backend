@@ -25,7 +25,7 @@ public class MovieController
 
     @GetMapping({"/", ""})
     public CustomResponseEntity<?> findAllMovies(@PageableDefault(page = 0, size = 10,
-            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam String title)
+            sort = "id", direction = Sort.Direction.ASC) Pageable pageable, @RequestParam(name = "title", defaultValue = "") String title)
     {
         Page<Movie> movies = movieService.findAllByName(title, pageable);
         return CustomResponseEntity.builder()

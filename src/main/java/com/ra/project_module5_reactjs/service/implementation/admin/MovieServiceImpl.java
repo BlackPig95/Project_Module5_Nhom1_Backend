@@ -102,6 +102,10 @@ public class MovieServiceImpl implements IMovieService
         {
             title = "";
         }
+        if (title.isEmpty())
+        {
+            return movieRepo.findAll(pageable);
+        }
         return movieRepo.findAllByTitleContaining(title, pageable);
     }
 }
