@@ -29,12 +29,9 @@ public class UserController {
     }
 
 
-
     @PutMapping("/{id}/status")
     public ResponseEntity<Void> updateUserStatus(@PathVariable Long id) throws CustomException {
-
             userService.updateUserStatus(id);
             return ResponseEntity.noContent().build();
-
     }
 }
