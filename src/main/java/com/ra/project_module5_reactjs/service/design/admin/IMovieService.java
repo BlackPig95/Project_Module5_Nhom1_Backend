@@ -23,4 +23,6 @@ public interface IMovieService
     Movie editMovie(MovieRequest movieRequest) throws ParseException;
 
     List<Movie> getAllMovies();
+
+    List<Movie> findHotMovies();
 }
