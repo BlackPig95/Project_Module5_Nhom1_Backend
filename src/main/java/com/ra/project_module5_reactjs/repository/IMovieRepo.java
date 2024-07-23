@@ -23,4 +23,27 @@ public interface IMovieRepo extends JpaRepository<Movie, Long>, PagingAndSorting
 //    List<Movie> findMovieWithGenre(Long id);
 //    @Query("select m.genres from Movie m where m.id = :movieId")
 //    List<Genre> findGenresByMovieId(Long movieId);
+
+    //    @Query(nativeQuery = true, value = "select m.*" +
+//            "from movie m" +
+//            "         join showtime s on m.id = s.movie_id" +
+//            "         join booking b on s.id = b.showtime_id" +
+//            "where month(b.booking_date) = month(curdate())" +
+//            "  and year(b.booking_date) = year(curdate())" +
+//            "group by m.id" +
+//            "order by count(m.id) desc ")
+    @Query("select m from Movie m join Showtime s on m.id = s.movie.id " +
+            "join Booking b on b.showtime.id = s.id " +
+            "where month(b.bookingDate) = month (current_date) " +
+            "and year(b.bookingDate) = year (current_date)" +
+            "group by m.id order by count(m.id) desc limit 5")
+    List<Movie> findHotMovies();
+//    select m.id, count(m.id)
+//    from movie m
+//    join showtime s on m.id = s.movie_id
+//    join booking b on s.id = b.showtime_id
+//    where month(b.booking_date) = month(curdate())
+//    and year(b.booking_date) = year(curdate())
+//    group by m.id
+//    order by count(m.id) desc;
 }

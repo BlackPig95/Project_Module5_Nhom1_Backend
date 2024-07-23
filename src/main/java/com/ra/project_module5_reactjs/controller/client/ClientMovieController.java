@@ -35,4 +35,16 @@ public class ClientMovieController
                 .data(movies)
                 .build();
     }
+
+    @GetMapping("/hot")
+    public CustomResponseEntity<?> findHotMovies()
+    {
+        List<Movie> movies = movieService.findHotMovies();
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Danh sách phim có lượt đặt vé nhiều")
+                .data(movies)
+                .build();
+    }
 }

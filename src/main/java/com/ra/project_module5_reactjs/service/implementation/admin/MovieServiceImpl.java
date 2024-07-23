@@ -126,4 +126,11 @@ public class MovieServiceImpl implements IMovieService
     {
         return movieRepo.findAll();
     }
+
+    @Override
+    public List<Movie> findHotMovies()
+    {
+//        return movieRepo.findAll();
+        return movieRepo.findHotMovies();
+    }
 }

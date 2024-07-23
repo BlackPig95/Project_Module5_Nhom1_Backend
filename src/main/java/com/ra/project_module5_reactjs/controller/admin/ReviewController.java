@@ -10,15 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/review")
+@RequestMapping("/api/v1/admin/review")
 @RequiredArgsConstructor
-public class ReviewController {
-    private  final ReviewServiceImpl service;
+public class ReviewController
+{
+    private final ReviewServiceImpl service;
 
     //    http://localhost:8080/api/v1/banner
 
     @GetMapping()
-    ApiResponse<?> getAllReview(){
+    ApiResponse<?> getAllReview()
+    {
         return ApiResponse.builder()
                 .code(HttpStatus.OK.value())
                 .message("")
@@ -29,7 +31,8 @@ public class ReviewController {
     //    http://localhost:8080/api/v1/banner
 
     @PutMapping()
-    ApiResponse<?> updateReview(@RequestBody Review review){
+    ApiResponse<?> updateReview(@RequestBody Review review)
+    {
         service.updateReview(review);
         return ApiResponse.builder()
                 .code(HttpStatus.NO_CONTENT.value())
