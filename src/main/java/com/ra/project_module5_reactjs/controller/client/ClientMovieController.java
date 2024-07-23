@@ -47,4 +47,18 @@ public class ClientMovieController
                 .data(movies)
                 .build();
     }
+
+    @GetMapping("/search")
+    public CustomResponseEntity<?> searchMovies(
+            @RequestParam(value = "searchValue", defaultValue = "") String searchValue,
+            @RequestParam(value = "searchOption", defaultValue = "title") String searchOption)
+    {
+        List<Movie> movies = movieService.searchClientMovies(searchValue, searchOption);
+        return CustomResponseEntity.builder()
+                .statusCode(httpOk.value())
+                .status(httpOk)
+                .message("Danh sách các phim được tìm thấy")
+                .data(movies)
+                .build();
+    }
 }
