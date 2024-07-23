@@ -9,23 +9,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/banner")
+@RequestMapping("/api/v1/admin/banner")
 @RequiredArgsConstructor
-public class BannerController {
+public class BannerController
+{
 
     private final BannerServiceImpl service;
     //    http://localhost:8080/api/v1/banner
 
     @GetMapping()
-    ApiResponse<?> getAllBanner(){
+    ApiResponse<?> getAllBanner()
+    {
         return ApiResponse.builder()
                 .code(HttpStatus.OK.value())
                 .message("")
                 .result(service.getAllBanner())
                 .build();
     }
+
     @PostMapping()
-    ApiResponse<?> createBanner(@RequestBody Banner banner){
+    ApiResponse<?> createBanner(@RequestBody Banner banner)
+    {
         return ApiResponse.builder()
                 .code(HttpStatus.CREATED.value())
                 .message("")
@@ -34,7 +38,8 @@ public class BannerController {
     }
 
     @PutMapping()
-    ApiResponse<?> updateBanner(@RequestBody Banner banner){
+    ApiResponse<?> updateBanner(@RequestBody Banner banner)
+    {
         service.updateBanner(banner);
         return ApiResponse.builder()
                 .code(HttpStatus.NO_CONTENT.value())
@@ -42,8 +47,10 @@ public class BannerController {
 
                 .build();
     }
+
     @DeleteMapping()
-    ApiResponse<?> deleteBanner(@RequestBody Banner banner){
+    ApiResponse<?> deleteBanner(@RequestBody Banner banner)
+    {
         service.deleteBanner(banner);
         return ApiResponse.builder()
                 .code(HttpStatus.NO_CONTENT.value())
