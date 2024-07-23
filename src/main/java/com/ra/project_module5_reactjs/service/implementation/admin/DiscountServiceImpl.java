@@ -36,7 +36,7 @@ public class DiscountServiceImpl implements IDiscountService {
         Discount discountUpdate = findById(updateId);
         discountUpdate.setCode(discountRequest.getCode());
         discountUpdate.setDescription(discountRequest.getDescription());
-        discountUpdate.setDiscountPercentage(Double.valueOf(discountRequest.getDiscountPercentage()));
+        discountUpdate.setDiscountPercentage(discountRequest.getDiscountPercentage());
         discountUpdate.setIsUsed(discountRequest.getIsUsed());
         discountUpdate.setValidFrom(discountRequest.getValidFrom());
         discountUpdate.setValidTo(discountRequest.getValidTo());
@@ -57,7 +57,7 @@ public class DiscountServiceImpl implements IDiscountService {
         return Discount.builder()
                 .code(discountRequest.getCode())
                 .description(discountRequest.getDescription())
-                .discountPercentage(Double.valueOf(discountRequest.getDiscountPercentage()))
+                .discountPercentage(discountRequest.getDiscountPercentage())
                 .isUsed(discountRequest.getIsUsed())
                 .validFrom(discountRequest.getValidFrom())
                 .validTo(discountRequest.getValidTo())
