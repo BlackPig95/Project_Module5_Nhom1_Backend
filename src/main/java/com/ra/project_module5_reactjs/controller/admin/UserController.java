@@ -6,6 +6,7 @@ import com.ra.project_module5_reactjs.service.design.admin.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -23,9 +24,16 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Page<User>> findAll(
             @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(defaultValue = "") String search
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "ASC") String direction
     ) {
-        return ResponseEntity.ok().body(userService.findAll(pageable, search));
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.fromString(direction), sort)
+        );
+        return ResponseEntity.ok().body(userService.findAll(sortedPageable, search));
     }
 
 

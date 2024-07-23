@@ -7,6 +7,7 @@ import com.ra.project_module5_reactjs.service.design.admin.INewsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,10 +25,18 @@ public class NewsController {
 
     @GetMapping
     public ResponseEntity<Page<News>> findAll(
-            @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+            @PageableDefault(page = 0, size = 3, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(defaultValue = "id") String sortField,
+            @RequestParam(defaultValue = "ASC") String sortDirection
     ) {
-        return ResponseEntity.ok().body(newsService.findAllNews(pageable));
+        Pageable sortedPageable = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                Sort.by(Sort.Direction.fromString(sortDirection), sortField)
+        );
+        return ResponseEntity.ok().body(newsService.findAllNews(sortedPageable));
     }
+
 
     @GetMapping("/{newsId}")
     public ResponseEntity<?> findById(@PathVariable Long newsId) throws CustomException {
