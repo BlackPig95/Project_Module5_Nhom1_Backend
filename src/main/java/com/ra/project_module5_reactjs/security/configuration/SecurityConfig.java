@@ -57,9 +57,9 @@ public class SecurityConfig
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(
                         url -> url
-                                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleEnum.ADMIN.toString())
-                                .requestMatchers("/api/v1/user/**").hasAuthority(RoleEnum.USER.toString())
-                        .requestMatchers("/api/v1/auth/register").permitAll()
+//                                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleEnum.ADMIN.toString())
+//                                .requestMatchers("/api/v1/user/**").hasAuthority(RoleEnum.USER.toString())
+//                        .requestMatchers("/api/v1/auth/register").permitAll()
                                 .anyRequest().permitAll()
                 )
                 .authenticationProvider(authProvider())
