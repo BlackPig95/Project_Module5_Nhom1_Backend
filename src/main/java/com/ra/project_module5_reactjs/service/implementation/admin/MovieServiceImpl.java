@@ -32,6 +32,7 @@ public class MovieServiceImpl implements IMovieService
     private final IGenreRepo genreRepo;
     private final IShowtimeRepo showtimeRepo;
     private final IReviewRepository reviewRepo;
+    private final FileService fileService;
 
     @Override
     public Page<Movie> findAll(Pageable pageable)
@@ -49,7 +50,7 @@ public class MovieServiceImpl implements IMovieService
                 .actors(movieRequest.getActors())
                 .userAdvice(UserAdviceEnum.valueOf(movieRequest.getUserAdvice()))
                 .duration(movieRequest.getDuration())
-//                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
+                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
                 .releaseDate(sdf.parse(movieRequest.getReleaseDate()))
                 .title(movieRequest.getTitle())
                 .trailerLink(movieRequest.getTrailerLink())
@@ -71,7 +72,7 @@ public class MovieServiceImpl implements IMovieService
                 .actors(movieRequest.getActors())
                 .userAdvice(UserAdviceEnum.valueOf(movieRequest.getUserAdvice()))
                 .duration(movieRequest.getDuration())
-//                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
+                .posterUrl(fileService.uploadFileToServer(movieRequest.getPosterUrl()))
                 .releaseDate(sdf.parse(movieRequest.getReleaseDate()))
                 .title(movieRequest.getTitle())
                 .trailerLink(movieRequest.getTrailerLink())
@@ -118,5 +119,11 @@ public class MovieServiceImpl implements IMovieService
             return movieRepo.findAll(pageable);
         }
         return movieRepo.findAllByTitleContaining(title, pageable);
+    }
+
+    @Override
+    public List<Movie> getAllMovies()
+    {
+        return movieRepo.findAll();
     }
 }
