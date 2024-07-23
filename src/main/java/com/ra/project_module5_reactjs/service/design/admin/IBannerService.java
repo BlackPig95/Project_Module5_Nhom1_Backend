@@ -6,7 +6,8 @@ import com.ra.project_module5_reactjs.model.entity.Seat;
 
 import java.util.List;
 
-public interface IBannerService {
+public interface IBannerService
+{
     public List<Banner> getAllBanner();
 
     public Banner createBanner(Banner banner);
@@ -15,4 +16,5 @@ public interface IBannerService {
 
     public void deleteBanner(Banner banner);
 
+    List<Banner> getActiveBanner();
 }

@@ -22,11 +22,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FileService
 {
-
     @Value("${bucket_name}")
     private String bucketName;
     private final Storage storage;
     private final ServletContext servletContext;
+
 
     public String uploadFileToServer(MultipartFile file)
     {

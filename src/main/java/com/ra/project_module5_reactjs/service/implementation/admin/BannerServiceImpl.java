@@ -12,30 +12,41 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BannerServiceImpl implements IBannerService {
+public class BannerServiceImpl implements IBannerService
+{
 
     private final IBannerRepository repository;
 
 
     @Override
-    public List<Banner> getAllBanner() {
+    public List<Banner> getAllBanner()
+    {
         return repository.findAll();
     }
 
     @Override
-    public Banner createBanner(Banner banner) {
+    public Banner createBanner(Banner banner)
+    {
 
         return repository.save(banner);
     }
 
     @Override
-    public void updateBanner(Banner banner) {
-         repository.save(banner);
+    public void updateBanner(Banner banner)
+    {
+        repository.save(banner);
 
     }
 
     @Override
-    public void deleteBanner(Banner banner) {
+    public void deleteBanner(Banner banner)
+    {
         repository.delete(banner);
+    }
+
+    @Override
+    public List<Banner> getActiveBanner()
+    {
+        return repository.findAllByStatusTrue();
     }
 }
