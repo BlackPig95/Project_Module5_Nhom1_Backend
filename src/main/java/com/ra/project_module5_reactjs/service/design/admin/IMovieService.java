@@ -25,4 +25,6 @@ public interface IMovieService
     List<Movie> getAllMovies();
 
     List<Movie> findHotMovies();
+
+    List<Movie> searchClientMovies(String searchValue, String searchOption);
 }

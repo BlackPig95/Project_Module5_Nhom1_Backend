@@ -133,4 +133,19 @@ public class MovieServiceImpl implements IMovieService
 //        return movieRepo.findAll();
         return movieRepo.findHotMovies();
     }
+
+    @Override
+    public List<Movie> searchClientMovies(String searchValue, String searchOption)
+    {
+        if (searchOption.equals("genres"))
+        {
+            return movieRepo.findAllByGenre(Long.parseLong(searchValue));
+        }
+        if (searchOption.equals("userAdvice"))
+        {
+            UserAdviceEnum userAdviceEnum = UserAdviceEnum.valueOf(searchValue);
+            return movieRepo.findAllByUserAdvice(userAdviceEnum);
+        }
+        return movieRepo.findAllByTitleContaining(searchValue);
+    }
 }
