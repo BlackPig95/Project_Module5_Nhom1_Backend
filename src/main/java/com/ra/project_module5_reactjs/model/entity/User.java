@@ -29,6 +29,8 @@ public class User
     private String fullName;
     @Column(name = "loyalty_points")
     private Integer loyaltyPoints;
+    @Column(name =  "address")
+    private String address;
     @Column(name = "password")
     private String password;
     @Column(name = "phone")

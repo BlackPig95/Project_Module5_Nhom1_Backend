@@ -16,6 +16,7 @@ import java.util.Optional;
 @Transactional
 public interface IUserRepository extends JpaRepository<User,Long> {
     Optional<User> findByEmail(String email);
+    Optional<User> findByUsername(String username);
     boolean existsByEmail(String email);
     Page<User> findAllByUsernameContains(String name, Pageable pageable);
 }
