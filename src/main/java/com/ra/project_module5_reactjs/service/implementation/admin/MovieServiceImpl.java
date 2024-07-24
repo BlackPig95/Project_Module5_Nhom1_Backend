@@ -146,6 +146,11 @@ public class MovieServiceImpl implements IMovieService
             UserAdviceEnum userAdviceEnum = UserAdviceEnum.valueOf(searchValue);
             return movieRepo.findAllByUserAdvice(userAdviceEnum);
         }
+        if (searchOption.equals(("country")))
+        {
+            Country country = countryRepo.findByName(searchValue);
+            return movieRepo.findAllByCountry(country);
+        }
         return movieRepo.findAllByTitleContaining(searchValue);
     }
 }
