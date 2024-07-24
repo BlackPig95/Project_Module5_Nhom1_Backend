@@ -4,6 +4,7 @@ import com.ra.project_module5_reactjs.constant.RoleEnum;
 import com.ra.project_module5_reactjs.exception.CustomException;
 import com.ra.project_module5_reactjs.model.dto.request.LoginRequest;
 import com.ra.project_module5_reactjs.model.dto.request.RegisterRequest;
+import com.ra.project_module5_reactjs.model.dto.request.UserEditRequest;
 import com.ra.project_module5_reactjs.model.dto.response.JwtResponse;
 import com.ra.project_module5_reactjs.model.entity.Role;
 import com.ra.project_module5_reactjs.model.entity.User;
@@ -22,9 +23,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,9 +41,11 @@ public class UserServiceImpl implements IUserService {
     private final IUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final IRoleService roleService;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     public JwtResponse login(LoginRequest loginRequest) throws CustomException {
         Authentication authentication;
+
         try {
             authentication = manager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         } catch (AuthenticationException e) {
@@ -53,6 +59,9 @@ public class UserServiceImpl implements IUserService {
                 .accessToken(jwtProvider.createToken(UserDetailCustom))
                 .fullName(UserDetailCustom.getFullName())
                 .email(UserDetailCustom.getEmail())
+                .username(UserDetailCustom.getUsername())
+                .phone(UserDetailCustom.getPhone())
+                .address(UserDetailCustom.getAddress())
                 .status(UserDetailCustom.getStatus())
                 .roles(UserDetailCustom.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()))
                 .build();
@@ -97,5 +106,24 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public void updateUser(UserEditRequest userEditRequest) throws CustomException, ParseException {
+        // Lấy thông tin người dùng từ token
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        // Tìm người dùng theo username
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new CustomException("Email not found", HttpStatus.NOT_FOUND));
+
+        // Cập nhật thông tin người dùng
+        user.setFullName(userEditRequest.getFullName());
+        user.setPhone(userEditRequest.getPhone());
+        user.setAddress(userEditRequest.getAddress());
+
+        // Lưu thông tin người dùng đã cập nhật
+        userRepository.save(user);
+
+    }
 
 }

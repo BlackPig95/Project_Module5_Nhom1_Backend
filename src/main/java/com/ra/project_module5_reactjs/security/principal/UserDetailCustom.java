@@ -22,7 +22,7 @@ public class UserDetailCustom implements UserDetails {
     private String phone;
     private Boolean status;
     private String username;
-
+    private String address;
     private String authorizationType = "Bearer ";
 
     private Collection<? extends GrantedAuthority> authorities;

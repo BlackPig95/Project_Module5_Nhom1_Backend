@@ -37,6 +37,7 @@ public class UserDetailCustomService implements UserDetailsService
                 .loyaltyPoints(user.getLoyaltyPoints())
                 .password(user.getPassword())
                 .phone(user.getPhone())
+                .address(user.getAddress())
                 .status(user.getStatus())
                 .username(user.getUsername())
                 .authorities(user.getRoles().stream().map(roles -> new SimpleGrantedAuthority(roles.getName().toString())).toList())
