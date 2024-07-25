@@ -22,6 +22,7 @@ public class Payment
     private Double amount;
     private Date paymentDate;
     private String paymentMethod;
+    @Enumerated(EnumType.STRING)
     private PaymentStatusEnum paymentStatus;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "booking_id", referencedColumnName = "id")

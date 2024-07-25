@@ -1,6 +1,7 @@
 package com.ra.project_module5_reactjs.repository;
 
 import com.ra.project_module5_reactjs.constant.UserAdviceEnum;
+import com.ra.project_module5_reactjs.model.entity.Country;
 import com.ra.project_module5_reactjs.model.entity.Genre;
 import com.ra.project_module5_reactjs.model.entity.Movie;
 import org.springframework.data.domain.Page;
@@ -46,4 +47,6 @@ public interface IMovieRepo extends JpaRepository<Movie, Long>, PagingAndSorting
     List<Movie> findAllByGenre(Long genreId);
 
     List<Movie> findAllByUserAdvice(UserAdviceEnum userAdvice);
+
+    List<Movie> findAllByCountry(Country country);
 }
