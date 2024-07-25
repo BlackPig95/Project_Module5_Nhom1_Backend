@@ -2,16 +2,20 @@ package com.ra.project_module5_reactjs.advice;
 
 import com.ra.project_module5_reactjs.exception.CustomException;
 import com.ra.project_module5_reactjs.model.dto.response.CustomResponseEntity;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @RestControllerAdvice
 public class ApplicationHandler {
@@ -45,12 +49,12 @@ public class ApplicationHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleException(Exception ex, WebRequest request) {
 		CustomResponseEntity<?> response = CustomResponseEntity.builder()
-				.statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-				.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.statusCode(INTERNAL_SERVER_ERROR.value())
+				.status(INTERNAL_SERVER_ERROR)
 				.message("Internal Server Error")
 				.data(ex.getMessage())
 				.build();
-		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(response, INTERNAL_SERVER_ERROR);
 	}
 
 	/**
@@ -67,4 +71,6 @@ public class ApplicationHandler {
 				.build();
 		return new ResponseEntity<>(response, HttpStatus.METHOD_NOT_ALLOWED);
 	}
+
+
 }

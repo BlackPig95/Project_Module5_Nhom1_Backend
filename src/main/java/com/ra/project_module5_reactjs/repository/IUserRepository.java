@@ -19,4 +19,8 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     Optional<User> findByUsername(String username);
     boolean existsByEmail(String email);
     Page<User> findAllByUsernameContains(String name, Pageable pageable);
+    @Transactional
+    @Modifying
+    @Query("update User u set u.password = ?2 where u.email = ?1")
+    void updatePassword(String email, String password);
 }
