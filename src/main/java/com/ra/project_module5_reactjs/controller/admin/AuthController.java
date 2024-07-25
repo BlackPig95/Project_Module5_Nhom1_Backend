@@ -6,6 +6,7 @@ import com.ra.project_module5_reactjs.model.dto.request.RegisterRequest;
 import com.ra.project_module5_reactjs.service.design.admin.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ public class AuthController {
     public ResponseEntity<?> handleLogin(@Valid @RequestBody LoginRequest loginRequest) throws CustomException {
         return ResponseEntity.ok().body(userService.login(loginRequest));
     }
+
 
 
 }

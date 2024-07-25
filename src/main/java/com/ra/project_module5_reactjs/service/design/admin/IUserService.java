@@ -17,6 +17,6 @@ public interface IUserService {
     void register(RegisterRequest registerRequest) throws CustomException;
     Page<User> findAll(Pageable pageable,String search);
     void updateUserStatus(Long id) throws CustomException;
-
     void updateUser( UserEditRequest userEditRequest) throws CustomException, ParseException;
+
 }
