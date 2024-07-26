@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.controller.general;
 
+import com.ra.project_module5_reactjs.exception.CustomException;
 import com.ra.project_module5_reactjs.model.dto.response.CustomResponseEntity;
 import com.ra.project_module5_reactjs.model.entity.Discount;
 import com.ra.project_module5_reactjs.service.design.admin.IDiscountService;
@@ -11,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +32,13 @@ public class DiscountUserController {
                 .data(discountService.findAllDiscount(pageable))
                 .build();
     }
-
+    @GetMapping("/{discountId}")
+    public CustomResponseEntity<?> findById (@PathVariable Long discountId) throws CustomException {
+        return CustomResponseEntity.builder()
+                .statusCode(HttpStatus.OK.value())
+                .status(HttpStatus.OK)
+                .message("Mã giảm giá đã được tìm thấy")
+                .data(discountService.findById(discountId))
+                .build();
+    }
 }
