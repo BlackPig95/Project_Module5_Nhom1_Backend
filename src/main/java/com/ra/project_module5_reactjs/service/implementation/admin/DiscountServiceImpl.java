@@ -1,5 +1,6 @@
 package com.ra.project_module5_reactjs.service.implementation.admin;
 
+import com.ra.project_module5_reactjs.config.FileService;
 import com.ra.project_module5_reactjs.exception.CustomException;
 import com.ra.project_module5_reactjs.model.dto.request.DiscountRequest;
 import com.ra.project_module5_reactjs.model.entity.Discount;
@@ -10,10 +11,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 @Service
 @RequiredArgsConstructor
 public class DiscountServiceImpl implements IDiscountService {
     private final IDiscountRepo discountRepo;
+    private final FileService fileService;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public Page<Discount> findAllDiscount(Pageable pageable) {
@@ -27,19 +34,20 @@ public class DiscountServiceImpl implements IDiscountService {
     }
 
     @Override
-    public Discount addNewDiscount(DiscountRequest discountRequest) {
+    public Discount addNewDiscount(DiscountRequest discountRequest) throws ParseException {
         return discountRepo.save(toEntity(discountRequest));
     }
 
     @Override
-    public Discount updateDiscount(DiscountRequest discountRequest, Long updateId) throws CustomException {
+    public Discount updateDiscount(DiscountRequest discountRequest, Long updateId) throws CustomException, ParseException {
         Discount discountUpdate = findById(updateId);
         discountUpdate.setCode(discountRequest.getCode());
         discountUpdate.setDescription(discountRequest.getDescription());
         discountUpdate.setDiscountPercentage(discountRequest.getDiscountPercentage());
+        discountUpdate.setImageUrl(discountRequest.getImageUrl() !=null ? fileService.uploadFileToServer(discountRequest.getImageUrl()) : discountUpdate.getImageUrl());
         discountUpdate.setIsUsed(discountRequest.getIsUsed());
-        discountUpdate.setValidFrom(discountRequest.getValidFrom());
-        discountUpdate.setValidTo(discountRequest.getValidTo());
+        discountUpdate.setValidFrom(sdf.parse(discountRequest.getValidFrom()));
+        discountUpdate.setValidTo(sdf.parse(discountRequest.getValidTo()));
 
         return discountRepo.save(discountUpdate);
     }
@@ -53,14 +61,15 @@ public class DiscountServiceImpl implements IDiscountService {
         }
     }
 
-    private Discount toEntity(DiscountRequest discountRequest) {
+    private Discount toEntity(DiscountRequest discountRequest) throws ParseException {
         return Discount.builder()
                 .code(discountRequest.getCode())
                 .description(discountRequest.getDescription())
                 .discountPercentage(discountRequest.getDiscountPercentage())
+                .imageUrl(fileService.uploadFileToServer(discountRequest.getImageUrl()))
                 .isUsed(discountRequest.getIsUsed())
-                .validFrom(discountRequest.getValidFrom())
-                .validTo(discountRequest.getValidTo())
+                .validFrom(sdf.parse(discountRequest.getValidFrom()))
+                .validTo(sdf.parse(discountRequest.getValidTo()))
                 .build();
     }
 }

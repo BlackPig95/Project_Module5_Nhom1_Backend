@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -18,9 +19,8 @@ public class DiscountRequest {
     private String code;
     private String description;
     private Double discountPercentage;
+    private MultipartFile imageUrl;
     private Boolean isUsed;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date validFrom;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date validTo;
+    private String validFrom;
+    private String validTo;
 }

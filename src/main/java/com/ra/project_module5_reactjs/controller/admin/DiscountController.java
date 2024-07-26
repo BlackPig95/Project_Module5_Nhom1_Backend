@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/api/v1/admin/voucher-management")
@@ -36,12 +37,12 @@ public class DiscountController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addNewDiscount( @RequestBody DiscountRequest discountRequest){
+    public ResponseEntity<?> addNewDiscount( @ModelAttribute DiscountRequest discountRequest) throws ParseException {
         return ResponseEntity.created(URI.create("/api/v1/admin/voucher-management")).body(discountService.addNewDiscount(discountRequest));
     }
 
     @PutMapping("/{discountId}")
-    public ResponseEntity<?> updateDiscount(@PathVariable Long discountId, @Valid @RequestBody DiscountRequest discountRequest ) throws CustomException{
+    public ResponseEntity<?> updateDiscount(@PathVariable Long discountId, @Valid @ModelAttribute DiscountRequest discountRequest ) throws CustomException, ParseException {
         return ResponseEntity.ok(discountService.updateDiscount(discountRequest,discountId));
     }
 

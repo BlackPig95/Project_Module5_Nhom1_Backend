@@ -24,6 +24,8 @@ public class Discount
     private String description;
     @Column(name = "discount_percentage")
     private Double discountPercentage;
+    @Column(name = "image_url")
+    private String imageUrl;
     @Column(name = "is_used")
     private Boolean isUsed;
     @Column(name = "valid_from")
