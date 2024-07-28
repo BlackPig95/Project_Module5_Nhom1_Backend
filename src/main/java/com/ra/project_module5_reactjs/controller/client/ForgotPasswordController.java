@@ -3,18 +3,19 @@ package com.ra.project_module5_reactjs.controller.client;
 
 import com.ra.project_module5_reactjs.model.dto.request.ChangePassword;
 import com.ra.project_module5_reactjs.service.design.general.IForgotPasswordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("api/v1/forgotPassword")
+@RequiredArgsConstructor
 public class ForgotPasswordController {
     private final IForgotPasswordService forgotPasswordService;
-
-    public ForgotPasswordController(IForgotPasswordService forgotPasswordService) {
-        this.forgotPasswordService = forgotPasswordService;
-    }
 
     @PostMapping("/verifyMail/{email}")
     public ResponseEntity<String> verifyEmail(@PathVariable String email) {
@@ -41,4 +42,6 @@ public class ForgotPasswordController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+
 }

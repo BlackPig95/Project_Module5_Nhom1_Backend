@@ -6,4 +6,5 @@ public interface IForgotPasswordService {
     void sendOtp(String email);
     void verifyOtp(Integer otp, String email);
     void changePassword(ChangePassword changePassword, String email);
+    void changePasswordUser(ChangePassword changePassword);
 }
